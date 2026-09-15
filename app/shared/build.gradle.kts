@@ -19,6 +19,7 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "Shared"
             isStatic = true
+            linkerOpts("-lsqlite3")
         }
     }
     
@@ -101,9 +102,10 @@ kotlin {
     }
 }
 sqldelight {
+    linkSqlite = true
     databases {
         create("AppDatabase") {
-            packageName.set("com.example.cmpshop.data.local")
+            packageName.set("com.example.cmpshop.data.local_db")
             dialect(libs.sqldelight.dialect)
         }
     }

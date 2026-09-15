@@ -15,12 +15,16 @@ class PostPagingSource (private val getPosts: GetPostsUseCase
             return try {
 
                 val page = params.key ?: 1
-
+                println(
+                    "PAGING → load page=$page, loadSize=${params.loadSize}"
+                )
                 val posts = getPosts(
                     page = page,
                     pageSize = params.loadSize
                 )
-
+                println(
+                    "PAGING ← page=$page, received=${posts.size}"
+                )
                 LoadResult.Page(
                     data = posts,
                     prevKey = if (page == 1) null else page - 1,

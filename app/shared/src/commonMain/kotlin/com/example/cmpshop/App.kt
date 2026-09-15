@@ -12,6 +12,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.cmpshop.data.local_db.AppDatabase
+import com.example.cmpshop.data.local_db.DatabaseDriverFactory
 import com.example.cmpshop.di.AppContainer
 import com.example.cmpshop.presentation.SplashScreen
 
@@ -24,15 +26,20 @@ import kotlinx.coroutines.launch
 @Composable
 fun App(
     dataStore: DataStore<Preferences>,
-) {
+    database: AppDatabase,
+    ) {
     var showSplash by remember {
         mutableStateOf(true)
     }
 //    var themeMode by remember {
 //        mutableStateOf(ThemeMode.SYSTEM)
 //    }
-
-    val appContainer = remember { AppContainer(dataStore) }
+    val appContainer = remember {
+        AppContainer(
+            dataStore = dataStore,
+            database = database
+        )
+    }
 
     val themeRepo = appContainer.themePreferenceRepository
 

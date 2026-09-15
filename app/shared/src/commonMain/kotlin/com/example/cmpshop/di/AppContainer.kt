@@ -2,6 +2,8 @@ package com.example.cmpshop.di
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import com.example.cmpshop.data.local_db.AppDatabase
+import com.example.cmpshop.data.local_db.PostLocalDataSource
 import com.example.cmpshop.data.remote.repositories.product.ProductRepositoryImpl
 import com.example.cmpshop.data.preferences.ThemePreferenceRepository
 import com.example.cmpshop.data.remote.network.post.PostApi
@@ -17,6 +19,7 @@ import com.example.cmpshop.presentation.posts.PostViewModel
 
 class AppContainer(
     dataStore: DataStore<Preferences>,
+    database: AppDatabase
 ) {
 
     private val productApi: ProductApi = ProductApiImp()
@@ -29,8 +32,13 @@ class AppContainer(
 
     val themePreferenceRepository = ThemePreferenceRepository(dataStore)
 
+
+    private val postLocalDataSource = PostLocalDataSource(database)
+
+
+
     private val postApi: PostApi = PostApiImpl()
-    private val postRepository: PostRepository = PostRepositoryImpl(postApi)
+    private val postRepository: PostRepository = PostRepositoryImpl(postApi,postLocalDataSource)
     val getPostsUseCase = GetPostsUseCase(postRepository)
 
     fun createPostViewModel(): PostViewModel {
@@ -38,4 +46,6 @@ class AppContainer(
             getPostsUseCase
         )
     }
+
+
 }
