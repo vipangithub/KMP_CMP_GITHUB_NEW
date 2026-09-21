@@ -41,13 +41,13 @@ import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun TextFieldComposeScreen() {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("TextField Example") }
-            )
-        }
-    ) { inner ->
+//    Scaffold(
+//        topBar = {
+//            TopAppBar(
+//                title = { Text("TextField Example") }
+//            )
+//        }
+//    ) { inner ->
         var textFiled1 by remember { mutableStateOf("") }
         var emailTextFiled by remember { mutableStateOf("") }
         var passwordFiled by remember { mutableStateOf("") }
@@ -56,7 +56,8 @@ fun TextFieldComposeScreen() {
         val isInValid = mobileField.isNotEmpty() && (mobileField.length !in 9..10)
 
         Column(
-            modifier = Modifier.padding(inner)
+            modifier = Modifier
+                //.padding(inner)
                 .padding(20.dp)
                 .verticalScroll(ScrollState(1)),
             verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -213,5 +214,4 @@ fun TextFieldComposeScreen() {
 
         }
 
-    }
 }

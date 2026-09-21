@@ -23,22 +23,22 @@ fun HomeScreen(
     onViewProductClick: () -> Unit,
     settingClick:()-> Unit
 ) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Shop Flow", style = MaterialTheme.typography.bodyLarge) },
-                actions = {
-                    IconButton(onClick = settingClick){
-                        PlatformSettingsIcon()
-                    }
-
-                }
-            )
-        }
-    ) { innerpadding ->
+//    Scaffold(
+//        topBar = {
+//            TopAppBar(
+//                title = { Text("Shop Flow", style = MaterialTheme.typography.bodyLarge) },
+//                actions = {
+//                    IconButton(onClick = settingClick){
+//                        PlatformSettingsIcon()
+//                    }
+//
+//                }
+//            )
+//        }
+//    ) { innerpadding ->
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(innerpadding),
+        modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
 
@@ -64,5 +64,4 @@ fun HomeScreen(
         }
 
     }
-}
 }

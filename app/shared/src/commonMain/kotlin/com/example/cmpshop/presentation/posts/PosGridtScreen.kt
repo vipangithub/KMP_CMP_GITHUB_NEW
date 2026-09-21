@@ -1,5 +1,6 @@
 package com.example.cmpshop.presentation.posts
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,13 +9,26 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,7 +41,7 @@ import androidx.paging.compose.itemKey
 import com.example.cmpshop.domain.model.Post
 
 @Composable
-fun PostScreen(
+fun PostGridScreen(
     viewModel: PostViewModel,
     onClickBack:()-> Unit
 ) {
@@ -75,48 +89,27 @@ fun PostScreen(
 
                 } else {
 
-                    PostList(posts, padding = 16.dp)
+                    PostListGrid(posts,padding = 16.dp)
                 }
             }
-        }
-   // }
-}
-
-@Composable
- fun EmptyView() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text("No posts found")
     }
 }
 
-@Composable
-fun ErrorView(message: String, onRetry: () -> Unit) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(text = message, color = MaterialTheme.colorScheme.error)
-        Spacer(modifier = Modifier.height(8.dp))
-        Button(onClick = onRetry) {
-            Text("Retry")
-        }
-    }
-}
+
 
 @Composable
-private fun PostList(
+private fun PostListGrid(
     posts: LazyPagingItems<Post>,
     padding: Dp
 ) {
 
-    LazyColumn(
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
         modifier = Modifier.fillMaxSize().padding(padding),
         contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+
     ) {
 
         items(
@@ -141,6 +134,7 @@ private fun PostList(
             } else {
 
                // PostPlaceholder()
+                PostSkeletonItem()
             }
         }
 
@@ -148,14 +142,22 @@ private fun PostList(
 
             is LoadState.Loading -> {
 
-                item {
+                item(
+                    span = {
+                        GridItemSpan(maxLineSpan)
+                    }
+                ) {
                     LoadingFooter()
                 }
             }
 
             is LoadState.Error -> {
 
-                item {
+                item(
+                    span = {
+                        GridItemSpan(maxLineSpan)
+                    }
+                ) {
                     RetryFooter(
                         onRetry = {
                             posts.retry()
@@ -258,6 +260,72 @@ private fun RetryFooter(
             onClick = onRetry
         ) {
             Text("Retry")
+        }
+    }
+}
+
+@Composable
+private fun PostSkeletonItem() {
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 220.dp)
+    ) {
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+
+            // ID placeholder
+            Box(
+                modifier = Modifier
+                    .width(40.dp)
+                    .height(14.dp)
+                    .background(
+                        color = MaterialTheme.colorScheme.surfaceVariant,
+                        shape = RoundedCornerShape(4.dp)
+                    )
+            )
+
+            Spacer(
+                modifier = Modifier.height(10.dp)
+            )
+
+            // Title placeholder
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(0.8f)
+                    .height(20.dp)
+                    .background(
+                        color = MaterialTheme.colorScheme.surfaceVariant,
+                        shape = RoundedCornerShape(4.dp)
+                    )
+            )
+
+            Spacer(
+                modifier = Modifier.height(12.dp)
+            )
+
+            // Body placeholder
+            repeat(4) {
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(14.dp)
+                        .background(
+                            color = MaterialTheme.colorScheme.surfaceVariant,
+                            shape = RoundedCornerShape(4.dp)
+                        )
+                )
+
+                Spacer(
+                    modifier = Modifier.height(6.dp)
+                )
+            }
         }
     }
 }

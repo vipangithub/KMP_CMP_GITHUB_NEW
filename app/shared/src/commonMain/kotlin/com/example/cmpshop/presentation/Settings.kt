@@ -24,16 +24,17 @@ fun SettingsScreen(
     onBackPress: () -> Unit,
     onClickMe:()-> Unit
 ) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("TextField Example") }
-            )
-        }
-    ) { inner ->
+//    Scaffold(
+//        topBar = {
+//            TopAppBar(
+//                title = { Text("TextField Example") }
+//            )
+//        }
+//    ) { inner ->
         Column(
             modifier = Modifier
-                .fillMaxWidth().padding(inner)
+                .fillMaxWidth()
+                //.padding(inner)
                 .padding(16.dp)
         ) {
 
@@ -85,7 +86,6 @@ fun SettingsScreen(
                 Text(text = "Click Me")
             }
         }
-    }
 }
 
 @Composable

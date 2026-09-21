@@ -47,17 +47,17 @@ fun ButtonsDemoScreen() {
 
     var isFavorite by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(false)}
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Buttons Types") }
-            )
-        }
-    ) { paddingValues ->
+//    Scaffold(
+//        topBar = {
+//            TopAppBar(
+//                title = { Text("Buttons Types") }
+//            )
+//        }
+//    ) { paddingValues ->
 
         Column(
             modifier = Modifier.fillMaxSize()
-                .padding(paddingValues)
+               // .padding(paddingValues)
                 .padding(20.dp)
             .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -216,6 +216,6 @@ fun ButtonsDemoScreen() {
                     Text("Submit")
                 }
             }
-        }
+  //      }
     }
 }

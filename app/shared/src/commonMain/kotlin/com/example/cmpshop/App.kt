@@ -64,7 +64,8 @@ fun App(
         darkTheme = darkTheme
     ) {
         if (showSplash) SplashScreen()
-        else AppNavigation(
+        else
+            AppNavigation(
             appContainer = appContainer,
             themeMode = saveThemeMode,
             onThemeModeChange = { newMode ->
@@ -75,3 +76,4 @@ fun App(
         )
     }
 }
+

@@ -34,19 +34,19 @@ fun ProductListScreen(
     onBackPress: () -> Unit,
     onSettingsPress: () -> Unit,
 ) {
-    Scaffold(
-        topBar = {
-            AppTopBar(
-                title = "Product List",
-                onBackClick = {
-                    onBackPress()
-                },
-                onSettingClick = {
-                    onSettingsPress()
-                }
-            )
-        }
-    ) { innerPadding ->
+//    Scaffold(
+//        topBar = {
+//            AppTopBar(
+//                title = "Product List",
+//                onBackClick = {
+//                    onBackPress()
+//                },
+//                onSettingClick = {
+//                    onSettingsPress()
+//                }
+//            )
+//        }
+//    ) { innerPadding ->
         when {
             uiState.isLoading -> {
                 Column(
@@ -67,7 +67,7 @@ fun ProductListScreen(
             else -> {
                 LazyColumn(
 
-                    modifier = Modifier.padding(innerPadding)
+                    modifier = Modifier.padding(16.dp)
                     //.windowInsetsPadding( WindowInsets.safeDrawing)
                 ) {
                     items(
@@ -85,7 +85,7 @@ fun ProductListScreen(
             }
         }
 
-    }
+ //   }
 
 
 }
